@@ -1,0 +1,166 @@
+{
+  "kind": "singleType",
+  "collectionName": "contact_page_contents",
+  "info": {
+    "singularName": "contact-page-content",
+    "pluralName": "contact-page-contents",
+    "displayName": "Contact Page Content",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ContactBannerTitle": {
+      "type": "string",
+      "required": true,
+      "default": "We'd Love to Hear from You!"
+    },
+    "ContactBannerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "PhoneNumber": {
+      "type": "string",
+      "required": true
+    },
+    "Email": {
+      "type": "string",
+      "required": true
+    },
+    "FormContactHeading": {
+      "type": "string",
+      "required": true,
+      "default": "Hey There!"
+    },
+    "FormContactSentence": {
+      "type": "string",
+      "required": true,
+      "default": "Let us know who you are and how to contact you."
+    },
+    "NameInputTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Your Name"
+    },
+    "EmailInputTitle": {
+      "type": "string",
+      "default": "Your Email",
+      "required": true
+    },
+    "PhoneInputTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Your Phone Number"
+    },
+    "NextButton": {
+      "type": "string",
+      "default": "Next",
+      "required": true
+    },
+    "BackButton": {
+      "type": "string",
+      "required": true,
+      "default": "Back"
+    },
+    "SubmitButton": {
+      "type": "string",
+      "default": "Submit",
+      "required": true
+    },
+    "FormServicesHeading": {
+      "type": "string",
+      "required": true,
+      "default": "How Can We Help You?"
+    },
+    "FormServicesSentence": {
+      "type": "string",
+      "required": true,
+      "default": "Select which of the following services you're interested in:"
+    },
+    "BuyingCheckboxTitle": {
+      "type": "string",
+      "default": "Buying",
+      "required": true
+    },
+    "SellingCheckboxTitle": {
+      "type": "string",
+      "default": "Selling",
+      "required": true
+    },
+    "HomeStagingCheckboxTitle": {
+      "type": "string",
+      "default": "Home Staging",
+      "required": true
+    },
+    "PhotoAndVideoCheckboxTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Photography and Drone Video"
+    },
+    "OtherCheckboxTitle": {
+      "type": "string",
+      "default": "Other"
+    },
+    "FormMessageHeading": {
+      "type": "string",
+      "default": "Give Us Some Details",
+      "required": true
+    },
+    "FormMessageSentence": {
+      "type": "string",
+      "required": true,
+      "default": "Let us know more about what kind of services and assitance you are looking for with Megally Realty."
+    },
+    "DefaultMessageStarter": {
+      "type": "string",
+      "default": "I'm interested in",
+      "required": true
+    },
+    "FormConfirmHeading": {
+      "type": "string",
+      "default": "We Look Forward to Hearing from You",
+      "required": true
+    },
+    "FormConfirmSentence": {
+      "type": "string",
+      "default": "Verify that your message is correct then hit Submit.",
+      "required": true
+    },
+    "SelectedServicesInputTitle": {
+      "type": "string",
+      "default": "Services of Interest",
+      "required": true
+    },
+    "MessageInputTitle": {
+      "type": "string",
+      "default": "Your Message",
+      "required": true
+    },
+    "FormStepOneTitle": {
+      "type": "string",
+      "default": "CONTACT",
+      "required": true
+    },
+    "FormStepTwoTitle": {
+      "type": "string",
+      "default": "SERVICES",
+      "required": true
+    },
+    "FormStepThreeTitle": {
+      "type": "string",
+      "default": "MESSAGE",
+      "required": true
+    },
+    "FormStepFourTitle": {
+      "type": "string",
+      "default": "CONFIRM",
+      "required": true
+    }
+  }
+}

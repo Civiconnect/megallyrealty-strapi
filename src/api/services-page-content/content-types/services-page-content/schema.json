@@ -1,0 +1,91 @@
+{
+  "kind": "singleType",
+  "collectionName": "services_page_contents",
+  "info": {
+    "singularName": "services-page-content",
+    "pluralName": "services-page-contents",
+    "displayName": "Services Page Content",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ServiceDescriptionHeading": {
+      "type": "string",
+      "required": true,
+      "default": "What We Offer"
+    },
+    "ServiceContactHeading": {
+      "type": "string",
+      "required": true,
+      "default": "Interested?"
+    },
+    "ServiceContactSentence": {
+      "type": "string",
+      "required": true,
+      "default": "Get in touch to learn more about our process and if it's a good fit for you."
+    },
+    "HomeStagingBannerTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Home Staging"
+    },
+    "HomeStagingBannerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "HomeStagingDescription": {
+      "type": "richtext",
+      "required": true
+    },
+    "PhotoAndVideoButton": {
+      "type": "string",
+      "default": "We Also Take Photos and Videos",
+      "required": true
+    },
+    "PhotoAndVideoBannerTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Photography and Drone Video"
+    },
+    "PhotoAndVideoBannerVideo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "PhotoAndVideoDescription": {
+      "type": "richtext",
+      "required": true
+    },
+    "ContactButton": {
+      "type": "string",
+      "required": true,
+      "default": "Contact Us"
+    },
+    "HomeStagingPhotoGallery": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    },
+    "PhotographyGallery": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    }
+  }
+}

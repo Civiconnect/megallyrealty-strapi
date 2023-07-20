@@ -1,0 +1,56 @@
+{
+  "kind": "singleType",
+  "collectionName": "individual_listing_page_contents",
+  "info": {
+    "singularName": "individual-listing-page-content",
+    "pluralName": "individual-listing-page-contents",
+    "displayName": "Individual Listing Page Content",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ContactFormHeading": {
+      "type": "string",
+      "required": true,
+      "default": "Interested in this Listing?"
+    },
+    "NameInputTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Your Name"
+    },
+    "EmailInputTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Your Email"
+    },
+    "PhoneInputTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Your Phone Number"
+    },
+    "SubmitButton": {
+      "type": "string",
+      "required": true,
+      "default": "Let Us Know!"
+    },
+    "MLSButton": {
+      "type": "string",
+      "default": "Visit Listing on MLS",
+      "required": true
+    },
+    "BedCountTitle": {
+      "type": "string",
+      "default": "Bed",
+      "required": true
+    },
+    "BathCountTitle": {
+      "type": "string",
+      "default": "Bath",
+      "required": true
+    }
+  }
+}

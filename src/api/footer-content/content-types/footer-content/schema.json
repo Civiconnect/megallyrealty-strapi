@@ -1,0 +1,65 @@
+{
+  "kind": "singleType",
+  "collectionName": "footer_contents",
+  "info": {
+    "singularName": "footer-content",
+    "pluralName": "footer-contents",
+    "displayName": "Footer Content",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Email": {
+      "type": "string",
+      "required": true
+    },
+    "PhoneNumber": {
+      "type": "string",
+      "required": true
+    },
+    "FooterBackground": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "MegallyRealtyLogo": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "iProRealtyLogo": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "ContactButton": {
+      "type": "string",
+      "default": "Send A Messsage",
+      "required": true
+    },
+    "InstagramURL": {
+      "type": "string",
+      "required": false
+    },
+    "TwitterURL": {
+      "type": "string",
+      "required": false
+    },
+    "FacebookURL": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

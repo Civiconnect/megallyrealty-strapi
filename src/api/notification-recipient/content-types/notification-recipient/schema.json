@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notification_recipients",
+  "info": {
+    "singularName": "notification-recipient",
+    "pluralName": "notification-recipients",
+    "displayName": "Notification Recipients"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Email": {
+      "type": "string"
+    }
+  }
+}

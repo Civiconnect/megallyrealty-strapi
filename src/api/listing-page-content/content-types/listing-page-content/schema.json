@@ -1,0 +1,61 @@
+{
+  "kind": "singleType",
+  "collectionName": "listing_page_contents",
+  "info": {
+    "singularName": "listing-page-content",
+    "pluralName": "listing-page-contents",
+    "displayName": "Listing Page Content",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ListingPageTitle": {
+      "type": "string",
+      "default": "Listings",
+      "required": true
+    },
+    "SearchBarPlaceholder": {
+      "type": "string",
+      "required": true,
+      "default": "Search our Listings by Address, City, or MLS#"
+    },
+    "FilteringHeading": {
+      "type": "string",
+      "required": true,
+      "default": "Showing"
+    },
+    "ClearFiltersButton": {
+      "type": "string",
+      "default": "Clear Filters",
+      "required": true
+    },
+    "ListingCardBedCountTitle": {
+      "type": "string",
+      "default": "Bed",
+      "required": true
+    },
+    "ListingCardBathCountTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Bath"
+    },
+    "IndividualListingPageButton": {
+      "type": "string",
+      "default": "Get More Details",
+      "required": true
+    },
+    "ViewOnMapButton": {
+      "type": "string",
+      "default": "View On Map",
+      "required": true
+    },
+    "NoListingsMessage": {
+      "type": "string",
+      "default": "No Listings Found.",
+      "required": true
+    }
+  }
+}

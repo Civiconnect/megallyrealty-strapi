@@ -1,0 +1,137 @@
+{
+  "kind": "singleType",
+  "collectionName": "landing_page_contents",
+  "info": {
+    "singularName": "landing-page-content",
+    "pluralName": "landing-page-contents",
+    "displayName": "Landing Page Content",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "HeroWelcomeTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Welcome to Megally Realty"
+    },
+    "HeroShortIntroduction": {
+      "type": "string",
+      "required": true
+    },
+    "HeroBackgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "HeroListingsPageButton": {
+      "type": "string",
+      "default": "See All Listings",
+      "required": true
+    },
+    "HeroServicesPageButton": {
+      "type": "string",
+      "default": "Our Services",
+      "required": true
+    },
+    "AboutUsHeading": {
+      "type": "string",
+      "default": "Who We Are",
+      "required": true
+    },
+    "AboutUsParagraph": {
+      "type": "richtext",
+      "required": true
+    },
+    "AboutUsPageButton": {
+      "type": "string",
+      "default": "Learn More About Us",
+      "required": true
+    },
+    "FeaturedListingsHeading": {
+      "type": "string",
+      "default": "Featured Listings",
+      "required": true
+    },
+    "ListingsPageButton": {
+      "type": "string",
+      "default": "Explore All",
+      "required": true
+    },
+    "ServiceCardsHeading": {
+      "type": "string",
+      "default": "Additional Services",
+      "required": true
+    },
+    "HomeStagingCardTitle": {
+      "type": "string",
+      "default": "Home Staging",
+      "required": true
+    },
+    "PhotographyCardTitle": {
+      "type": "string",
+      "default": "Photography",
+      "required": true
+    },
+    "DroneVideoCardTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Drone Video"
+    },
+    "ServicesPageButtons": {
+      "type": "string",
+      "default": "Learn More",
+      "required": true
+    },
+    "HomeStagingCardPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "PhotographyCardPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "DroneVideoCardPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "TestimonialsHeading": {
+      "type": "string",
+      "required": true,
+      "default": "Testimonials"
+    },
+    "AboutUsImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "TestimonialsBackground": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

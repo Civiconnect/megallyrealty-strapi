@@ -1,0 +1,125 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_us_page_contents",
+  "info": {
+    "singularName": "about-us-page-content",
+    "pluralName": "about-us-page-contents",
+    "displayName": "About Us Page Content",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "AboutUsBannerTitle": {
+      "type": "string",
+      "required": true,
+      "default": "About Us"
+    },
+    "AboutUsBannerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "BassemName": {
+      "type": "string",
+      "required": true,
+      "default": "Bassem Megally"
+    },
+    "BassemBio": {
+      "type": "richtext",
+      "required": true
+    },
+    "ChrisName": {
+      "type": "string",
+      "required": true,
+      "default": "Chris Megally"
+    },
+    "ChrisBio": {
+      "type": "richtext",
+      "required": true
+    },
+    "BassemPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "ChrisPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "TestimonialsHeading": {
+      "type": "string",
+      "required": true,
+      "default": "Testimonials"
+    },
+    "ServicesCardsHeading": {
+      "type": "string",
+      "required": true,
+      "default": "Our Services"
+    },
+    "HomeStagingCardTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Home Staging"
+    },
+    "HomeStagingCardPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "PhotographyCardTitle": {
+      "type": "string",
+      "default": "Photography",
+      "required": true
+    },
+    "PhotographyCardPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "DroneVideoCardTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Drone Video"
+    },
+    "DroneVideoCardPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "ServicePageButtons": {
+      "type": "string",
+      "default": "Learn More",
+      "required": true
+    },
+    "TestimonialsBackground": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "kind": "collectionType",
+  "collectionName": "listings",
+  "info": {
+    "singularName": "listing",
+    "pluralName": "listings",
+    "displayName": "Listings",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Address": {
+      "type": "string",
+      "required": true
+    },
+    "City": {
+      "type": "string",
+      "required": true
+    },
+    "Province": {
+      "type": "string",
+      "default": "ON",
+      "required": true
+    },
+    "Description": {
+      "type": "richtext",
+      "required": true
+    },
+    "Price": {
+      "type": "biginteger",
+      "required": true
+    },
+    "Bedrooms": {
+      "type": "decimal",
+      "required": true
+    },
+    "Bathrooms": {
+      "type": "decimal",
+      "required": true
+    },
+    "SqFt": {
+      "type": "biginteger",
+      "required": true
+    },
+    "Sold": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "FeaturedListing": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "FeaturedPhoto": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "PhotosAndVideos": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "latitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "longitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "MLS": {
+      "type": "biginteger",
+      "required": false
+    },
+    "test": {
+      "type": "customField",
+      "customField": "plugin::location-field.location"
+    },
+    "MLSLink": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
