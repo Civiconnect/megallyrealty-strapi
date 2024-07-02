@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "mls_configs",
+  "info": {
+    "singularName": "mls-config",
+    "pluralName": "mls-configs",
+    "displayName": "MLS Config"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "timestamp": {
+      "type": "string",
+      "private": true
+    },
+    "members": {
+      "type": "json",
+      "private": true
+    }
+  }
+}

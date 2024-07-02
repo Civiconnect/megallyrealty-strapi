@@ -45,11 +45,6 @@
       "type": "biginteger",
       "required": true
     },
-    "Sold": {
-      "type": "boolean",
-      "default": false,
-      "required": true
-    },
     "FeaturedListing": {
       "type": "boolean",
       "default": false,
@@ -80,17 +75,27 @@
       "type": "decimal",
       "required": true
     },
-    "MLS": {
-      "type": "biginteger",
-      "required": false
-    },
-    "test": {
+    "location": {
       "type": "customField",
       "customField": "plugin::location-field.location"
     },
     "MLSLink": {
       "type": "string",
       "required": true
+    },
+    "Availability": {
+      "type": "enumeration",
+      "enum": [
+        "For Sale",
+        "Sold",
+        "For Lease",
+        "Leased"
+      ],
+      "required": true,
+      "default": "For Sale"
+    },
+    "MLS": {
+      "type": "string"
     }
   }
 }
