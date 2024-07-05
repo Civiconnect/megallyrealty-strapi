@@ -12,19 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Address": {
-      "type": "string",
-      "required": true
-    },
-    "City": {
-      "type": "string",
-      "required": true
-    },
-    "Province": {
-      "type": "string",
-      "default": "ON",
-      "required": true
-    },
     "Description": {
       "type": "richtext",
       "required": true
@@ -67,14 +54,6 @@
         "videos"
       ]
     },
-    "latitude": {
-      "type": "decimal",
-      "required": true
-    },
-    "longitude": {
-      "type": "decimal",
-      "required": true
-    },
     "location": {
       "type": "customField",
       "customField": "plugin::location-field.location"
@@ -96,6 +75,10 @@
     },
     "MLS": {
       "type": "string"
+    },
+    "Address": {
+      "type": "string",
+      "private": true
     }
   }
 }
