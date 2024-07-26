@@ -8,7 +8,7 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": false
+    "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
@@ -43,11 +43,6 @@
     },
     "SqFt": {
       "type": "biginteger",
-      "required": true
-    },
-    "Sold": {
-      "type": "boolean",
-      "default": false,
       "required": true
     },
     "FeaturedListing": {
@@ -90,6 +85,16 @@
     },
     "MLSLink": {
       "type": "string",
+      "required": true
+    },
+    "Availability": {
+      "type": "enumeration",
+      "enum": [
+        "For Sale",
+        "Sold",
+        "For Lease",
+        "Leased"
+      ],
       "required": true
     }
   }
