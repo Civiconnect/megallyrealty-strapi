@@ -1,3 +1,4 @@
+const axios = require("axios");
 const https = require('https');
 const fs = require('fs');
 
@@ -63,13 +64,17 @@ const ingestDDFListingsHelper = async (strapi) => {
         const mlsMediaToUpload = !entry ? property.Media : 
             property.Media.filter(media => !mediaKeysInStrapi.some(key => media.MediaKey === key));
 
-        fs.mkdir('./tmp', {recursive: true}, (err) => {
-            if (err) {
-                console.log("ERROR: Error while creating tmp folder");
-                console.log(err);
-                throw err;
-            }
-        });
+        try {
+            fs.mkdirSync('./tmp', {recursive: true}, (err) => {
+                if (err) {
+                    console.log("ERROR: Error while creating tmp folder");
+                    console.log(err);
+                    throw err;
+                }
+            });
+        } catch (err) {
+            throw err;
+        }
         
         const mediaToUpload = await Promise.all(mlsMediaToUpload.map(async media => {
             const fileName = media.MediaURL.substring(media.MediaURL.lastIndexOf('/') + 1);
@@ -237,18 +242,20 @@ const ingestDDFListingsHelper = async (strapi) => {
         'scope': "DDFApi_Read",
     });
 
-    const bearerToken = await fetch("https://identity.crea.ca/connect/token", {
-        method: "POST",
-        headers: {
-            'Content-Type': "application/x-www-form-urlencoded",
-        },
-        body: authReqBody.toString(),
-    })
+    const bearerToken = await axios.post(
+        "https://identity.crea.ca/connect/token", 
+        authReqBody.toString(), 
+        {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        }
+    )
     .then(res => {
-        if (!res.ok)
-            throw new Error(res);
+        if (res.status !== 200)
+            throw new Error(res.data);
 
-        return res.json();
+        return res.data;
     })
     .then(res => res.access_token)
     .catch(err => {
@@ -259,17 +266,16 @@ const ingestDDFListingsHelper = async (strapi) => {
 
     // MLS API Property request
 
-    const properties = await fetch(`https://ddfapi.realtor.ca/odata/v1/Property?${filterString}`, {
-        method: "GET",
+    const properties = await axios.get(`https://ddfapi.realtor.ca/odata/v1/Property?${filterString}`, {
         headers: {
             'Authorization': `Bearer ${bearerToken}`
         }
     })
     .then(res => {
-        if (!res.ok)
-            throw new Error(res);
+        if (res.status !== 200)
+            throw new Error(res.data);
 
-        return res.json();
+        return res.data;
     })
     .then(res => res.value)
     .catch(err => {
