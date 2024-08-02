@@ -15,25 +15,31 @@ module.exports = ({ env }) => [
             `https://${env("S3_BUCKET_NAME")}.s3.${env("S3_REGION")}.amazonaws.com`,
             `https://${env("S3_BUCKET_NAME")}.s3.amazonaws.com`,
           ],
-          "media-src": ["'self'", "data:", "blob:"],
+          "media-src": ["'self'", "data:", "blob:", `https://${env("S3_BUCKET_NAME")}.s3.${env("S3_REGION")}.amazonaws.com`,
+          `https://${env("S3_BUCKET_NAME")}.s3.amazonaws.com`],
           "script-src": ["'self'", "'unsafe-inline'", "maps.googleapis.com"],
           upgradeInsecureRequests: null,
         },
       },
     },
   },
-  "strapi::cors",
+  {
+    name: 'strapi::cors',
+    config: {
+      origin: ['*'],
+    },
+  },
   "strapi::poweredBy",
   "strapi::logger",
   "strapi::query",
   {
     name: "strapi::body",
     config: {
-      formLimit: "256mb", // modify form body
-      jsonLimit: "256mb", // modify JSON body
-      textLimit: "256mb", // modify text body
+      formLimit: "2gb", // modify form body
+      jsonLimit: "2gb", // modify JSON body
+      textLimit: "2gb", // modify text body
       formidable: {
-        maxFileSize: 250 * 1024 * 1024, // multipart data, modify here limit of uploaded file size
+        maxFileSize: 2000 * 1024 * 1024, // multipart data, modify here limit of uploaded file size
       },
     },
   },
