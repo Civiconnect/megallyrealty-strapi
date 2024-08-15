@@ -56,7 +56,7 @@ const ingestDDFListingsHelper = async (strapi) => {
     };
 
     // Function to convert a DDF Property listing to our Strapi object
-    const ddfListingToStrapiEntry = async (property) => {
+    const ddfListingToStrapiEntry = (property) => {
         return {
             MLS:  property.ListingId ? property.ListingId : "N/A",
             MLSLink: property.ListingURL ? (!property.ListingURL.startsWith('https://') ? 'https://' : '') + property.ListingURL : "",
@@ -176,26 +176,15 @@ const ingestDDFListingsHelper = async (strapi) => {
 
     const propertiesToUpdateOldMLSKeys = propertiesToUpdateOld.map(entry => entry.MLS);
 
-    const [propertiesToUpdateNew, propertiesToCreate] = await Promise.all([
-        Promise.all(
-            propertiesToUpdateOld.map(async entry => Object({
-                id: entry.id,
-                data: await ddfListingToStrapiEntry(properties.filter(property => property.ListingId === entry.MLS)[0])
-            }))
-        ),
-        Promise.all(
-            properties.filter(property => 
-                !propertiesToUpdateOldMLSKeys.includes(property.ListingId)).map(property => 
-                    ddfListingToStrapiEntry(property)
-            )
+    const [propertiesToUpdateNew, propertiesToCreate] = [
+        propertiesToUpdateOld.map(entry => Object({
+            id: entry.id,
+            data: ddfListingToStrapiEntry(properties.filter(property => property.ListingId === entry.MLS)[0])
+        })),
+        properties.filter(property => 
+            !propertiesToUpdateOldMLSKeys.includes(property.ListingId)).map(property => ddfListingToStrapiEntry(property)
         )
-    ])
-    .then(res => res)
-    .catch(err => {
-        console.log("ERROR: Error while converting MLS entries to Strapi records");
-        console.log(err);
-        throw err;
-    });
+    ];
 
     console.log(`Creating: ${propertiesToCreate.length} | Updating: ${propertiesToUpdateNew.length} | Total: ${propertiesToCreate.length + propertiesToUpdateNew.length}`);
 
