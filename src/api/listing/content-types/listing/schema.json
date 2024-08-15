@@ -40,7 +40,7 @@
     "FeaturedPhoto": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ]
@@ -48,7 +48,7 @@
     "PhotosAndVideos": {
       "type": "media",
       "multiple": true,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "videos"
@@ -79,6 +79,9 @@
     "Address": {
       "type": "string",
       "private": true
+    },
+    "PhotosAndVideosURLs": {
+      "type": "json"
     }
   }
 }

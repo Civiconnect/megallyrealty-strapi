@@ -1,7 +1,3 @@
-const axios = require("axios");
-const https = require('https');
-const fs = require('fs');
-
 const ingestDDFListingsHelper = async (strapi) => {
 
     const newTimestamp = new Date().toISOString();
@@ -59,127 +55,8 @@ const ingestDDFListingsHelper = async (strapi) => {
         return unitNumber + streetNumber + streetName + streetSuffix + streetDirPrefix + streetDirSuffix + city + stateProvince + country;
     };
 
-    const uploadMedia = async (entry, property) => {
-        const mediaKeysInStrapi = entry ? entry.PhotosAndVideos.map(upload => upload.caption) : [];
-        const mlsMediaToUpload = !entry ? property.Media : 
-            property.Media.filter(media => !mediaKeysInStrapi.some(key => media.MediaKey === key));
-
-        try {
-            fs.mkdirSync('./tmp', {recursive: true}, (err) => {
-                if (err) {
-                    console.log("ERROR: Error while creating tmp folder");
-                    console.log(err);
-                    throw err;
-                }
-            });
-        } catch (err) {
-            throw err;
-        }
-        
-        const mediaToUpload = await Promise.all(mlsMediaToUpload.map(async media => {
-            const fileName = media.MediaURL.substring(media.MediaURL.lastIndexOf('/') + 1);
-            const filePath = `./tmp/${fileName}`;
-            const stream = fs.createWriteStream(filePath);
-            
-            // Download file locally and get mime type
-            const mimeType = await new Promise((resolve, reject) => {
-                https.get(media.MediaURL, res => {
-                    res.pipe(stream);
-                    stream.on('finish', () => {
-                        stream.close(() => {
-                            resolve(res.headers['content-type']);
-                        });
-                    });
-                }).on('error', (err) => {
-                    fs.unlink(filePath, () => reject(err));
-                });
-            })
-            .then(res => res)
-            .catch(err => {
-                console.log("ERROR: Error while downloading media file");
-                console.log(err);
-                throw err;
-            });
-
-            const fileSize = fs.statSync(filePath).size;
-
-            const file = {
-                path: filePath,
-                name: fileName,
-                type: mimeType,
-                size: fileSize,
-            };
-
-            return {
-                data: {
-                    fileInfo: {
-                        name: fileName,
-                        caption: media.MediaKey,
-                    },
-                },
-                files: file,
-            };
-        }))
-        .then(res => res)
-        .catch(err => {
-            console.log("ERROR: Error while handling media file");
-            console.log(err);
-        });
-
-        const mediaKeysInMLS = property.Media.map(media => media.MediaKey);
-        const strapiMediaToDelete = !entry ? [] :
-            entry.PhotosAndVideos.filter(upload => !mediaKeysInMLS.some(key => upload.caption === key));
-
-        const [uploadRes, deleteRes] = await Promise.all([
-            Promise.all(mediaToUpload.map(media => strapi.plugins.upload.services.upload.upload(media))),
-            Promise.all(strapiMediaToDelete.map(upload => strapi.plugins.upload.services.upload.remove({id: upload.id})))
-        ])
-        .then(res => res)
-        .catch(err => {
-            console.log("ERROR: Error while uploading or deleting media");
-            console.log(err);
-        });
-
-        const newFeaturedPhotoKey = property.Media.find(media => media.PreferredPhotoYN).MediaKey;
-        const newFeaturedPhotoId = Object({id:
-            ( 
-                (entry?.PhotosAndVideos?.find(entry => entry.caption === newFeaturedPhotoKey)?.id)
-                || (uploadRes.find(upload => upload[0].caption === newFeaturedPhotoKey)[0]?.id)
-                || null
-            )
-        });
-        
-        const remainingPhotosAndVideos = !entry ? [] :
-            entry.PhotosAndVideos.filter(media => !strapiMediaToDelete.some(deleteMedia => deleteMedia.id === media.id));
-
-        const newPhotosAndVideosIds = [
-            ...(remainingPhotosAndVideos?.map(upload => Object({id: upload.id})) || []),
-            ...(uploadRes?.map(upload => Object({id: upload[0].id})) || []),
-        ];
-
-        fs.rmSync('./tmp', {recursive: true, force: true}, (err) => {
-            if (err) {
-                console.log("ERROR: Error while deleting tmp folder");
-                console.log(err);
-                throw err;
-            }
-        }); 
-
-        return {
-            PhotosAndVideos: newPhotosAndVideosIds,
-            FeaturedPhoto: newFeaturedPhotoId
-        };            
-    }
-
     // Function to convert a DDF Property listing to our Strapi object
-    const ddfListingToStrapiEntry = async (entry, property) => {
-        const {PhotosAndVideos, FeaturedPhoto} = await uploadMedia(entry, property)
-            .then(res => res)
-            .catch(err => {
-                console.log("ERROR: Error while uploading media");
-                console.log(err);    
-            });
-
+    const ddfListingToStrapiEntry = async (property) => {
         return {
             MLS:  property.ListingId ? property.ListingId : "N/A",
             MLSLink: property.ListingURL ? (!property.ListingURL.startsWith('https://') ? 'https://' : '') + property.ListingURL : "",
@@ -195,8 +72,8 @@ const ingestDDFListingsHelper = async (strapi) => {
                 lng: property.Longitude,
                 description: getPropertyAddressString(property),
             },
-            FeaturedPhoto: FeaturedPhoto,
-            PhotosAndVideos: {set: PhotosAndVideos},
+            PhotosAndVideosURLs: property.Media.sort((a, b) => b.PreferredPhotoYN - a.PreferredPhotoYN).map(m => m.MediaURL),
+            publishedAt: Date.now()
         };
     };
 
@@ -242,20 +119,18 @@ const ingestDDFListingsHelper = async (strapi) => {
         'scope': "DDFApi_Read",
     });
 
-    const bearerToken = await axios.post(
-        "https://identity.crea.ca/connect/token", 
-        authReqBody.toString(), 
-        {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        }
-    )
+    const bearerToken = await fetch("https://identity.crea.ca/connect/token", {
+        method: "POST",
+        headers: {
+            'Content-Type': "application/x-www-form-urlencoded",
+        },
+        body: authReqBody.toString(),
+    })
     .then(res => {
-        if (res.status !== 200)
-            throw new Error(res.data);
+        if (!res.ok)
+            throw new Error(res);
 
-        return res.data;
+        return res.json();
     })
     .then(res => res.access_token)
     .catch(err => {
@@ -266,16 +141,17 @@ const ingestDDFListingsHelper = async (strapi) => {
 
     // MLS API Property request
 
-    const properties = await axios.get(`https://ddfapi.realtor.ca/odata/v1/Property?${filterString}`, {
+    const properties = await fetch(`https://ddfapi.realtor.ca/odata/v1/Property?${filterString}`, {
+        method: "GET",
         headers: {
             'Authorization': `Bearer ${bearerToken}`
         }
     })
     .then(res => {
-        if (res.status !== 200)
-            throw new Error(res.data);
+        if (!res.ok)
+            throw new Error(res);
 
-        return res.data;
+        return res.json();
     })
     .then(res => res.value)
     .catch(err => {
@@ -304,13 +180,13 @@ const ingestDDFListingsHelper = async (strapi) => {
         Promise.all(
             propertiesToUpdateOld.map(async entry => Object({
                 id: entry.id,
-                data: await ddfListingToStrapiEntry(entry, properties.filter(property => property.ListingId === entry.MLS)[0])
+                data: await ddfListingToStrapiEntry(properties.filter(property => property.ListingId === entry.MLS)[0])
             }))
         ),
         Promise.all(
             properties.filter(property => 
                 !propertiesToUpdateOldMLSKeys.includes(property.ListingId)).map(property => 
-                    ddfListingToStrapiEntry(null, property)
+                    ddfListingToStrapiEntry(property)
             )
         )
     ])
@@ -344,14 +220,6 @@ module.exports = {
             } catch (error) {
                 console.log("ERROR: Error while running task...");
                 console.log(error);
-
-                // Cleanup tmp folder if left behind from premature error
-                fs.rmSync('./tmp', {recursive: true, force: true}, (err) => {
-                    if (err) {
-                        console.log("ERROR: Error while deleting tmp folder (post-error cleanup)");
-                        console.log(err);
-                    }
-                }); 
             }
         },
         options: {
