@@ -82,6 +82,12 @@
     },
     "PhotosAndVideosURLs": {
       "type": "json"
+    },
+    "latitude": {
+      "type": "decimal"
+    },
+    "longitude": {
+      "type": "decimal"
     }
   }
 }
