@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const ingestDDFListingsHelper = async (strapi) => {
 
     const newTimestamp = new Date().toISOString();
@@ -198,6 +201,31 @@ const ingestDDFListingsHelper = async (strapi) => {
         console.log("ERROR: Error occurred during update/creation");
         console.log(err);
     });
+
+    const fileString = `MLS INGESTION ${newTimestamp}
+---
+Created ${propertiesToCreate?.length + ` record${propertiesToCreate?.length === 1 ? '' : 's'}`}
+${propertiesToCreate?.map(entry => `MLS ID: ${entry?.MLS} | Property Name: ${entry?.location?.description}`).join('\n')}
+---
+Updated ${propertiesToUpdateNew?.length + ` record${propertiesToUpdateNew?.length === 1 ? '' : 's'}`}
+${propertiesToUpdateNew?.map(entry => `MLS ID: ${entry?.data?.MLS} | Property Name: ${entry?.data?.location?.description}`).join('\n')}
+`;
+
+    const dirPath = path.join(__dirname, '../mls-logs');
+    const filePath = path.join(dirPath, `${newTimestamp.split('T')[0]}.txt`);
+
+    try {
+        fs.statSync(dirPath)
+    } catch (err) {
+        fs.mkdirSync(dirPath, {recursive: true});
+    }
+
+    try {
+        fs.writeFileSync(filePath, fileString);
+    } catch (err) {
+        console.log("Error: Error while writing log file.");
+        console.log(err);
+    }
 };
 
 module.exports = {
